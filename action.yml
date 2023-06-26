@@ -38,5 +38,5 @@ runs:
       env:
         VIRTUAL_DEVICE_TOKEN: ${{ inputs.VIRTUAL_DEVICE_TOKEN }}
         JOB_CREATION_TIMESTAMP: ${{ inputs.JOB_CREATION_TIMESTAMP }}
-        BESPOKEN_API_BASE_URL: https://bespoken-api-dev.bespoken.tools/
-        SOURCE_API_BASE_URL: https://source-api-dev.bespoken.tools/
+        BESPOKEN_API_BASE_URL: https://bespoken-api.bespoken.tools/
+        SOURCE_API_BASE_URL: https://source-api.bespoken.tools/
