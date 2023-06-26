@@ -1,0 +1,42 @@
+name: bst-test
+
+description: 'execute bst test command on self host runner'
+
+inputs:
+  SOURCE_ID:
+    required: true
+    type: string
+  JOB_CREATION_TIMESTAMP:
+    required: true
+    type: string
+  VIRTUAL_DEVICE_TOKEN:
+    required: true
+    type: string
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: "16"
+    - name: Update description
+      shell: bash
+      run: |
+        node -e "const fs=require('fs');
+        const {name:description}=JSON.parse(fs.readFileSync('./${{ inputs.SOURCE_ID }}/.dashboard'));
+        const testing=JSON.parse(fs.readFileSync('./${{ inputs.SOURCE_ID }}/testing.json'));
+        fs.writeFileSync('./${{ inputs.SOURCE_ID }}/testing.json',JSON.stringify({...testing, description},null,4));"
+    - name: bst version
+      shell: bash
+      run: node /home/ubuntu/.nvm/versions/node/v16.20.0/bin/bst --version
+    - name: Test
+      shell: bash
+      run: node /home/ubuntu/.nvm/versions/node/v16.20.0/bin/bst test --virtualDeviceToken "$VIRTUAL_DEVICE_TOKEN" *.yml
+      working-directory: ./${{ inputs.SOURCE_ID }}
+      env:
+        VIRTUAL_DEVICE_TOKEN: ${{ inputs.VIRTUAL_DEVICE_TOKEN }}
+        JOB_CREATION_TIMESTAMP: ${{ inputs.JOB_CREATION_TIMESTAMP }}
+        BESPOKEN_API_BASE_URL: https://bespoken-api-dev.bespoken.tools/
+        SOURCE_API_BASE_URL: https://source-api-dev.bespoken.tools/
