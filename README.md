@@ -12,7 +12,7 @@ Add and step that reference this action bespoken-dashboard-repositories/bst-test
     name: e2e test
     steps:
       - id: bst-test
-        uses: bespoken-dashboard-repos/bst-test@v1
+        uses: bespoken-dashboard-repositories/bst-test@v1
         with:
           SOURCE_ID: 
           JOB_CREATION_TIMESTAMP: 
