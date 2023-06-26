@@ -30,10 +30,10 @@ runs:
         fs.writeFileSync('./${{ inputs.SOURCE_ID }}/testing.json',JSON.stringify({...testing, description},null,4));"
     - name: bst version
       shell: bash
-      run: node /home/ubuntu/.nvm/versions/node/v16.20.0/bin/bst --version
+      run: node /home/ubuntu/.nvm/versions/node/v16.20.1/bin/bst --version
     - name: Test
       shell: bash
-      run: node /home/ubuntu/.nvm/versions/node/v16.20.0/bin/bst test --virtualDeviceToken "$VIRTUAL_DEVICE_TOKEN" *.yml
+      run: node /home/ubuntu/.nvm/versions/node/v16.20.1/bin/bst test --virtualDeviceToken "$VIRTUAL_DEVICE_TOKEN" *.yml
       working-directory: ./${{ inputs.SOURCE_ID }}
       env:
         VIRTUAL_DEVICE_TOKEN: ${{ inputs.VIRTUAL_DEVICE_TOKEN }}
